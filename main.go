@@ -12,8 +12,10 @@ func main() {
 
 	app.Static("/", "/public")
 
-	config.Connection()
+	config.ConnectDB()
+	config.RunMigration()
 
+	routes.AuthRoutes(app)
 	routes.UserRoute(app)
 
 	app.Listen(":8080")

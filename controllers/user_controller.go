@@ -7,11 +7,10 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-var db = config.DB
 
 func GetUsers(c *fiber.Ctx) error {
 	var users []models.User
-	db.Find(&users)
+	config.DB.Find(&users)
 	return c.JSON(users)
 }
 
@@ -20,6 +19,6 @@ func CreateUser(c *fiber.Ctx) error {
 	if err := c.BodyParser(user); err != nil {
 		return c.Status(400).JSON(fiber.Map{"error": err.Error()})
 	}
-	db.Create(&user)
+	config.DB.Create(&user)
 	return c.JSON(user)
 }
